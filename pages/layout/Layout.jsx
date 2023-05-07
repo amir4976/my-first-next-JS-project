@@ -17,7 +17,7 @@ function Layout({title, description ,keyword,children}) {
       <Header/>
       {Router.pathname === '/' && <ShowCase/>}
     <div className={styles.container}>
-     {children}
+     {children} 
 
     </div>
     <Footer/>
