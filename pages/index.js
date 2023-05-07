@@ -5,6 +5,8 @@ import styles from '../styles/Layout.module.css';
 import Header from "@/component/Header/Header";
 const inter = Inter({ subsets: ["latin"] });
 import Layout from "./layout/Layout";
+import { NEXT_URL } from "@/config";
+import EventItem from "../component/EventItem/EventItem";
 
 export default function Home({result}) {
  console.log(result)
@@ -15,7 +17,9 @@ export default function Home({result}) {
     <Layout title={'home events'}>
    
         <h1>home</h1>
-
+        {result.map((evt)=>(
+          <EventItem key={evt.id} evt={evt}/>
+        ))}
     </Layout>
 
   
@@ -24,7 +28,7 @@ export default function Home({result}) {
 }
 
 export async function getStaticProps () {
-  const res = await fetch('http://localhost:3000/api/hello')
+  const res = await fetch(`${NEXT_URL}/api/events`)
   const result = await res.json()
   console.log(result)
   return {
