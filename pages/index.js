@@ -6,7 +6,10 @@ import Header from "@/component/Header/Header";
 const inter = Inter({ subsets: ["latin"] });
 import Layout from "./layout/Layout";
 
-export default function Home() {
+export default function Home({result}) {
+ console.log(result)
+
+
   return (
     <>
     <Layout title={'home events'}>
@@ -18,4 +21,13 @@ export default function Home() {
   
     </>
   );
+}
+
+export async function getStaticProps () {
+  const res = await fetch('http://localhost:3000/api/hello')
+  const result = await res.json()
+  console.log(result)
+  return {
+    props:{result}
+  }
 }
