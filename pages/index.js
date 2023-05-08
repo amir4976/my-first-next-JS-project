@@ -32,6 +32,7 @@ export async function getStaticProps () {
   const result = await res.json()
   console.log(result)
   return {
-    props:{result}
+    props:{result},
+    revalidate: 1,
   }
 }

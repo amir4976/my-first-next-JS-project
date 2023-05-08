@@ -16,8 +16,8 @@ function EventItem(evt) {
             <h3>{evt.evt.name}</h3>
         </div>
         <div className={Styles.link}>
-            <Link href={`/events/${evt.evt.slug}`}>
-                details
+            <Link href={`/events/${evt.evt.slug}`} className='btn'>
+                    details
             </Link>
         </div>
     </div>
