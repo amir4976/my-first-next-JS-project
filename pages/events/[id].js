@@ -5,9 +5,8 @@ import { NEXT_URL } from '@/config'
 
 function eventPage({ events }) {
   const router = useRouter()
-  const { id } = router.query
-  console.log(events)
-  console.log(NEXT_URL)
+
+
   return (
     <>
       <Layout title={'event'}>
@@ -25,7 +24,7 @@ export async function getStaticPaths() {
   const events = await res.json()
 
   const paths = events.map((evt) => ({
-    params: { slug: evt.slug }
+    params: { slug: evt.slug}
   }))
 
 
@@ -38,14 +37,15 @@ export async function getStaticPaths() {
 
 
 
-export async function getStaticProps({ params: { slug } }) {
-
-  const res = await fetch(`${NEXT_URL}/api/events/${slug.id}`)
+export async function getStaticProps({ query:{slug} }) {
+console.log(slug)
+  const res = await fetch(`${NEXT_URL}/api/events/${slug}`)
   const events = await res.json()
+
 
   return {
     props: {
-       events: events[0] ,
+      evt:events[0]
       },
       revalidate: 1
   }
