@@ -10,7 +10,7 @@ function eventPage({ events }) {
   return (
     <>
       <Layout title={'event'}>
-        <h1>{events.name}</h1>
+        {/* <h1>{events.name}</h1> */}
 
       </Layout>
     </>
@@ -19,37 +19,33 @@ function eventPage({ events }) {
 
 
 
-export async function getStaticPaths() {
-  const res = await fetch(`${NEXT_URL}/api/events`)
-  const events = await res.json()
+export async function getStaticPath () {
+const res = await fetch(`${NEXT_URL}/api/events`)
+const result = await res.json()
+const paths = result.map((evt)=>(
+  {params : {slug : evt.slug}}
+))
 
-  const paths = events.map((evt) => ({
-    params: { slug: evt.slug}
-  }))
+console.log(paths)
+
+return {
+paths,
+fallback:false  
+}
+
+}
 
 
-  return {
-    paths,
-    fallback: true
+export async function getStaticProps ({params}){
+  console.log(params)
+  return{
+    params:{}
   }
 }
 
 
 
 
-export async function getStaticProps({ query:{slug} }) {
-console.log(slug)
-  const res = await fetch(`${NEXT_URL}/api/events/${slug}`)
-  const events = await res.json()
-
-
-  return {
-    props: {
-      evt:events[0]
-      },
-      revalidate: 1
-  }
-}
 
 
 // get server side props
